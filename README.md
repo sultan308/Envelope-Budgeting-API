@@ -1,8 +1,8 @@
 # **Envelope Budgeting API**
-This project is a part of Codecademy back end carrer path. 
+ 
 
 ## Introduction 
-This is an API that helps the user with budgeting useing the [envolpe budgeting method](https://www.thebalance.com/what-is-envelope-budgeting-1293682).
+This is an API that helps the user with budgeting useing the [envolpe budgeting method](https://www.thebalance.com/what-is-envelope-budgeting-1293682). This project is a part of Codecademy back end carrer path.
 ## Features
 * Viewing envolpes
 * Adding envelopes
@@ -10,13 +10,13 @@ This is an API that helps the user with budgeting useing the [envolpe budgeting 
 * Removeing envolopes
 ## Installation
 ```bash
-git clone repolink
-cd repoenvelope
-npm install
+$ git clone https://github.com/sultan308/Envelope-Budgeting-API working-directory-name
+$ cd working-directory-name
+$ npm install
 ``` 
 ## Usage
 ### ```GET``` Requests:
-#### ```{yourhost}/envelopes/```
+#### ```{host}/envelopes/```
 If successful will return status ```200``` and JSON with attributes :
 * ```total_budget``` the sum of all envelopes budgets.
 * ```envelopes``` an object where keys are the envlopes' names and the values are the budgets.
@@ -33,7 +33,7 @@ Example JSON
     }
 }
 ```
-#### ```{yourhost}/envelopes/:envelope_name```
+#### ```{host}/envelopes/:envelope_name```
 Where ```:envelope_name``` is the name of the requested envelope
   
 If successful will return status ```200``` and JSON with attributes :
@@ -49,7 +49,7 @@ Example JSON
 ```
 If the envelope wasn't found will return status ```404``` and with text ```Envelope doesn't exist```
 ### ```POST``` Requests:
-#### ```{yourhost}/envelopes/```
+#### ```{host}/envelopes/```
 
 A JSON needs to be in the body of the request and contain the following attributes :
 * ```name``` where the value is the envelope's name
@@ -69,7 +69,7 @@ Responses :
 * Status : ```400``` and text ```"Request JSON needs to have name(string) and budget (number)"```, if the one of the attributes was missing or a wrong value type was provided.  
   
 ### ```PUT``` Requests:
-#### ```{yourhost}/envelopes/```
+#### ```{host}/envelopes/```
 
 A JSON needs to be in the body of the request and contain the following attributes :
 * ```name``` where the value is the envelope's name
@@ -89,7 +89,7 @@ Responses :
 * Status : ```400```  and text ```"Can not be a negative number"```, if budget is a negative number.
 * Status : ```400``` and text ```"Request JSON needs to have name(string) and budget (number)"```, if the one of the attributes was missing or a wrong value type was provided.  
   
-#### ```{yourhost}/transfer/```
+#### ```{host}/transfer/```
 A JSON needs to be in the body of the request and contain the following attributes :
 * ```sender_envelope``` where the value is the sender envelope name.
 * ```reciver_envelope``` where the value is the reciveing envelope name.
@@ -122,7 +122,7 @@ Responses :
 * Status : ```400``` and text ```"Request JSON needs to have sender_envelope  and reciver_envelope"```, if ```sender_envelope``` and/or ```sender_envelope```attributes was missing. 
 ### ```DELETE``` Requests:
 
-#### ```{yourhost}/envelopes/:envelope_name```
+#### ```{host}/envelopes/:envelope_name```
 Where ```:envelope_name``` is the name of the envelope to be deleted.
 Responses :
 * Status : ```200```  and text ```"Envelope deleted successfully"```, if the envelope was deleted.
