@@ -131,4 +131,4 @@ Responses :
 * Status : ```404```  and text ```"Envelope doesn't exist"```, if one or both of the envelopes deosn't exist.
 
 ## Contributing
-This project was created to practice newly accured skills and is not intended for real usage however, if you have any recomndations for emprovements or have noticed something that could have been implemented better please don't hesitate to open a new issue I would really appricate it as will help me in my learning journey. 
+This project was created to practice newly acquired skills and is not intended for real usage however, if you have any recommendations for emprovements or have noticed something that could have been implemented better please don't hesitate to open a new issue I would really appricate it as will help me in my learning journey. 
