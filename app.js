@@ -1,4 +1,4 @@
-const Envelopes = require('./envelope');
+const Envelopes = require('./envelopes');
 const express = require('express');
 const bodyParser = require('body-parser');
 

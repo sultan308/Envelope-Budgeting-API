@@ -1,4 +1,4 @@
-const Envelopes = require('../envelope');
+const Envelopes = require('../envelopes');
 const {assert} = require('chai');
 
 let envelopes;
