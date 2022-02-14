@@ -96,8 +96,8 @@ A JSON needs to be in the body of the request and contain the following attribut
 * ```amount``` **(optional : defaults to maximum)** where the value is tha amount to transfer, can't be negative and it has to be of type number.
   
 Example JSON
+Sends all the bills budget to health
 ```json
-// Sends all the bills budget to health
 { 
     "sender_envelope" : "bills",
     "reciver_envelope" : "health"
@@ -105,8 +105,8 @@ Example JSON
 ```
 
 -or-
+Sends 100 of the bills budget to health
 ```json
-// Sends 100 of the bills budget to health
 { 
     "sender_envelope" : "bills",
     "reciver_envelope" : "health",
