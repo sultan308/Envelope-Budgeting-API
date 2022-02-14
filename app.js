@@ -1,26 +1,19 @@
+const Envelopes = require('./envelope');
 const express = require('express');
+const bodyParser = require('body-parser');
+
 const app = express();
 
-const cors = require('cors');
+const envelopeRoute = require('./routes/envelopesRoute');
+const transferRoute = require('./routes/transferRoute');
 
-const bodyParser = require('body-parser');
-const { Router } = require('express');
+app.locals.envelopes = new Envelopes();
 
-const envelopeRouter = express.Router();
+app.use(bodyParser.json());
+app.use('/envelopes',envelopeRoute);
+app.use('/transfer',transferRoute)
 
-envelopeRouter.get('/', (req,res,next) => {
-           
-});
-envelopeRouter.get('/:name', (req,res,next) => {
+const PORT = process.env.PORT || 4001;
+app.listen(PORT,()=>console.log(`Listening on port ${PORT}`));
 
-});
-
-envelopeRouter.post('/', (req,res,next) => {
-
-});
-envelopeRouter.put('/', (req,res,next) => {
-
-});
-envelopeRouter.delete('/', (req,res,next) => {
-
-});
+module.exports = app;
