@@ -1,74 +1,147 @@
-
 class Envelopes {
-
-    constructor(total_Budget)
+    
+    constructor()
     {
         this._envelopes = {}
-        this._total_Budget = total_Budget;
-        this._amount_allocated = 0; 
+        this._total_Budget = 0
     }
+
+    // Getter methods -----
+
     get totalBudget() {
         return this._total_Budget;
-    }
-    get amountAllocated()
-    {
-        return this._amount_allocated;
-    }
-    get amountAvailable()
-    {
-        return this._total_Budget-this._amount_allocated;
     }
     get envelopes() {
         return this._envelopes;
     }
-
-    getEnvelopeBudget(envelope)
+    getEnvelopesJSON()
     {
-        return this._envelopes[envelope];
+        return { 
+                 total_budget : this._total_Budget,
+                 envelopes : this._envelopes
+               }
     }
-    addEnvelope(envelope,budget = 0)
+    getEnvelopeJSON(envelope_name)
     {
-        if(this._envelopes[envelope]) throw new Error("Envelope already exist");
-        if(budget > this.amountAvailable) throw new Error("Insufficient fund");
-        this._envelopes[envelope] = budget;
+        this._throwErrorIfDoesNotExist(envelope_name);
+
+        return { 
+                 envelope_name : envelope_name,
+                 envelope_budget : this._envelopes[envelope_name]
+               }
     }
-    updateEnvelopeBudget(envelope,new_budget)
+    getEnvelopeBudget(envelope_name)
     {
-        if(!this._envelopes[envelope]) throw new Error("Envelope doesn't exist");
-
-        if(budget > (this.amountAvailable+this._envelopes[envelope])) throw new Error("Insufficient fund");
-
-        this._envelopes[envelope] = new_budget;
+        this._throwErrorIfDoesNotExist(envelope_name);
+        return this._envelopes[envelope_name];
     }
-    addToEnvelopeBudget(envelope,amount_to_add)
+    // Helper methods ----
+    
+    _throwErrorIfDoesNotExist(envelope_name)
     {
-        if(!this._envelopes[envelope]) throw new Error("Envelope doesn't exist");
+        if(this._envelopes[envelope_name] === undefined){
 
-        if(amount_to_add > this.amountAvailable) throw new Error("Insufficient fund");
-
-        this._envelopes[envelope] += amount_to_add;
+             throw new Error("Envelope doesn't exist");
+        }
     }
-    deductFromEnvelopeBudget(envelope,amount_to_deduct)
+    _throwErrorIfExists(envelope_name)
     {
-        if(!this._envelopes[envelope]) throw new Error("Envelope doesn't exist");
+        if(this._envelopes[envelope_name] !== undefined){
+            
+             throw new Error("Envelope already exist");
+        }
+    }
+    _throwErrorIfNegative(amount)
+    {
+        if(amount < 0){
+            
+             throw new Error("Can not be a negative number");
+        }
+    }
+   
+   
+    
 
-        if(amount_to_deduct > this._envelopes[envelope]) throw new Error("Insufficient envelope fund");
+    // Mutator methods -----
+    
+    addEnvelope(envelope_name,budget = 0)
+    {
+        this._throwErrorIfExists(envelope_name);
 
-        this._envelopes[envelope] -= amount_to_deduct;
+        this._throwErrorIfNegative(budget);
+
+        this._envelopes[envelope_name] = budget;
+        this._total_Budget+=budget;
+    }
+
+    updateEnvelopeBudget(envelope_name,new_budget)
+    {
+        this._throwErrorIfDoesNotExist(envelope_name);
+         
+        this._throwErrorIfNegative(new_budget);
+        
+
+        this._total_Budget -= this._envelopes[envelope_name];
+
+        this._envelopes[envelope_name] = new_budget;
+
+        this._total_Budget += new_budget;
+        
+    }
+
+    addToEnvelopeBudget(envelope_name,amount_to_add)
+    {
+        this._throwErrorIfDoesNotExist(envelope_name);
+
+        this._throwErrorIfNegative(amount_to_add);
+
+        this._envelopes[envelope_name] += amount_to_add;
+        this._total_Budget += amount_to_add;
+
+    }
+    deductFromEnvelopeBudget(envelope_name,amount_to_deduct)
+    {
+        this._throwErrorIfDoesNotExist(envelope_name);
+        
+        this._throwErrorIfNegative(amount_to_deduct);
+
+        if(amount_to_deduct > this._envelopes[envelope_name]) throw new Error("Insufficient envelope fund");
+
+        this._envelopes[envelope_name] -= amount_to_deduct;
+        this._total_Budget -= amount_to_deduct;
     }
     transferBudget(sender_envelope,reciver_envelope , amount = undefined)
     {
-        if(!this._envelopes[sender_envelope] || !this._envelopes[reciver_envelope]) throw new Error("Envelope doesn't exist");
+        this._throwErrorIfDoesNotExist(sender_envelope);
+        this._throwErrorIfDoesNotExist(reciver_envelope);
 
-        if(!amount) amount = this._envelopes[sender_envelope];
+
+        if(amount === undefined) amount = this._envelopes[sender_envelope];
+
+        this._throwErrorIfNegative(amount);
+
+        if(amount > this._envelopes[sender_envelope]) throw new Error("Insufficient sender envelope fund")
 
         this._envelopes[reciver_envelope] += amount;
         this._envelopes[sender_envelope] -= amount;
 
     }
+    removeEnvelope(envelope_name)
+    {
+        this._throwErrorIfDoesNotExist(envelope_name);
+
+        this._total_Budget -= this._envelopes[envelope_name];
+        delete this._envelopes[envelope_name];
+    }
+    clear()
+    {
+        this._total_Budget = 0;
+        this._envelopes = {};
+    }
 
 }
 
+module.exports = Envelopes;
 
 
 
